@@ -218,6 +218,41 @@ $(document).ready(function(){
       		var tmp=`TOTAL: ${total}`;
       		$('#total').html(tmp);
       	}
-      }
+    }
+
+    $("#checkout").on('click',function(){
+
+     var cart = localStorage.getItem('cart');
+		var cartArray = JSON.parse(cart);
+
+		var notes = $('#notes').val();
+		var totalAmount=0;
+
+		$.each(cartArray, function(i,v){
+			var unitprice = v.price;
+			var discount = v.discount;
+			var qty = v.qty;
+
+			if (discount) {
+				var price = (unitprice-discount) * qty;
+			}else{
+				var price = unitprice * qty;
+			}
+			totalAmount += price++;
+		});
+
+		//console.log(totalAmount);
+
+		$.post('storeorder.php', {
+			value1:cartArray,
+			value2:notes,
+			value3:totalAmount
+		},function(response){
+			localStorage.clear();
+			location.href = "order_success.php";
+     
+    })
+	
+})
 
 });

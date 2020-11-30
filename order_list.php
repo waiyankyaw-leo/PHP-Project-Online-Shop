@@ -1,5 +1,11 @@
 <?php 
     require 'backendheader.php';
+    require 'db_connect.php';
+    $sql="SELECT * FROM orders";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+
+    $orders =$stmt->fetchAll();
 ?>
     <div class="app-title">
         <div>
@@ -26,15 +32,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+                                <?php
+                                  $i=1;
+                                  foreach ($orders as $order) {
+                                     $oDate=$order['orderdate'];
+                                     $voucherno=$order['voucherno'];
+                                     $total=$order['total'];
+                                     $status=$order['status'];
+                                     $id=$order['id'];
+                                  
+
+                                ?>
                                 <tr>
-                                    <td>1</td>
-                                    <td>2015-02-12</td>
-                                    <td>1921313</td>
-                                    <td>150000</td>
-                                    <td>Order</td>
+                                    <td><?= $i++ ?></td>
+                                    <td><?= $oDate ?></td>
+                                    <td><?= $voucherno ?></td>
+                                    <td><?= $total ?></td>
+                                    <td><?= $status ?></td>
                                     <td>
-                                        <a href="" class="btn btn-outline-info">
+                                        <a href="order_detail.php?id=<?= $id  ?>" class="btn btn-outline-info">
                                             <i class="icofont-info"></i>
                                         </a>
                                         <a href="" class="btn btn-outline-success">
@@ -47,6 +63,7 @@
                                     </td>
 
                                 </tr>
+                            <?php } ?>
                                 
                             </tbody>
                         </table>

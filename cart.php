@@ -49,9 +49,20 @@
 								<textarea class="form-control" id="notes" placeholder="Any Request..."></textarea>
 							</td>
 							<td colspan="3">
-								<button class="btn btn-secondary btn-block mainfullbtncolor checkoutbtn"> 
+								<?php
+									if(isset($_SESSION['login_user'])){
+								?>
+
+								<button class="btn btn-secondary btn-block mainfullbtncolor " id="checkout"> 
 									Check Out 
 								</button>
+								<?php
+									}else{
+								?>
+								<a href="login.php" class="btn btn-secondary btn-block mainfullbtncolor ">Check Out</a>
+								<?php
+								}
+								?>
 							</td>
 						</tr>
 					</tfoot>
@@ -62,9 +73,7 @@
 		<!-- No Shopping Cart Div -->
 		<div class="row mt-5 noneshoppingcart_div text-center">
 			
-			<div class="col-12">
-				<h5 class="text-center"> There are no items in this cart </h5>
-			</div>
+			
 
 			<div class="col-12 mt-5 ">
 				<a href="categories" class="btn btn-secondary mainfullbtncolor px-3" > 

@@ -1,5 +1,13 @@
 <?php 
     require 'backendheader.php';
+
+    require 'db_connect.php';
+
+    $sql="SELECT * FROM users as u INNER JOIN model_has_roles as m ON m.user_id=u.id WHERE m.role_id=2;";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+
+    $users =$stmt->fetchAll();
 ?>
     <div class="app-title">
         <div>
@@ -24,11 +32,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+                                <?php 
+                                 $i=1;
+                                 foreach ($users as $user) {
+                                     $id=$user['id'];
+                                     $name=$user['name'];
+                                     $phone=$user['phone'];
+                                                                    
+                                 ?>
                                 <tr>
-                                    <td>1</td>
-                                    <td>Waiyankyaw</td>
-                                    <td>09-1312323</td>
+                                    <td><?= $i++ ?></td>
+                                    <td><?= $name ?></td>
+                                    <td><?= $phone ?></td>
                                     <td>
                                         <a href="" class="btn btn-outline-danger">
                                             <i class="icofont-close"></i>
@@ -36,6 +51,8 @@
                                     </td>
 
                                 </tr>
+
+                                <?php } ?>
                                 
                             </tbody>
                         </table>
